@@ -1,34 +1,48 @@
-# Quotes-Deep-Scraper
-"A dynamic Python web scraper that performs deep data extraction with multi-page navigation and intelligent location parsing."
+# 🕵️‍♂️ Quotes Intelligence & Deep-Bio Scraper (v2.0)
 
-# 🕵️‍♂️ Quotes Intelligence & Deep-Bio Scraper
-
-An advanced, production-ready web scraping engine built with **Python**. This tool doesn't just scrape quotes; it performs **conditional deep-crawling** to harvest rich biographical data, featuring a custom-built **Data Engineering** logic to sanitize and structure geographical information.
+An advanced, production-ready web scraping engine built with **Python**. This version features **Global Tag Discovery**, allowing users to see every available category across the entire website before choosing their preferences.
 
 ---
 
-## 🎯 Project Overview
+## 🎯 What's New in V2.0?
 
-The main challenge of this project was navigating the trade-off between speed and depth. The script implements a "User-Intent" architecture where it only performs secondary HTTP requests to author bio pages if the user explicitly requests it, saving bandwidth and resources.
+The latest update focuses on **User Experience (UX)** and **Data Integrity**:
 
-### 🛠 Technical Highlights:
-* **The Pagination Engine:** A robust `while` loop logic that detects the "Next" button dynamically to traverse all 10 pages without getting trapped in infinite loops.
-* **Location Intelligence:** A specialized parser that cleans "Born Location" strings (e.g., removing "in " prefixes) and maps them into a strict **City | State | Country** schema.
-* **Smart Filtering:** Real-time filtration based on user-provided tags using Python's `any()` logic.
+* **Global Tag Discovery:** The engine now performs a pre-scan of all 10 pages to collect a unique, sorted set of tags using Python `sets`.
+* **Intelligent Text Wrapping:** Utilizing the `textwrap` library, the available tags are displayed in a clean, readable paragraph format in the console.
+* **Case-Insensitive Matching:** Enhanced filtration logic that handles variations in user input (e.g., "Life" vs "life") for 100% match accuracy.
+* **Data Sanitization:** Improved string stripping to handle invisible whitespaces in both website tags and user inputs.
+
+---
+
+## 🛠 Technical Highlights
+
+* **The Pagination Engine:** A dynamic `while` loop that traverses the site by detecting the "Next" button, ensuring it works even if the number of pages changes.
+* **Data Engineering (Location Parser):** A custom logic that breaks down "Born Location" into a structured **City | State | Country** schema, regardless of the number of commas in the source string.
+* **Efficiency:** Uses conditional HTTP requests; biographical data is only fetched if the user explicitly requests it, optimizing bandwidth.
 
 ---
 
 ## 📊 Data Structure (The "Feast")
 
-The output is a meticulously organized CSV file. Below is how the data is structured:
+The output is a structured CSV file with the following schema:
 
 | Field | Description |
 | :--- | :--- |
 | **Full Name** | The verified name of the author. |
 | **Quote** | The extracted text of the quote. |
-| **Related Tags** | A comma-separated list of categories. |
-| **Born Date** | Extracted and cleaned birth date. |
+| **Related Tags** | Comma-separated categories associated with the quote. |
+| **Born Date** | Extracted and sanitized birth date. |
 | **City** | Parsed city of birth. |
-| **State** | Parsed state/province (Defaults to 'Unknown' if unavailable). |
-| **Country** | Parsed country (Handled via reverse-index parsing). |
-| **Biography** | A preview of the author's life (First 100 characters). |
+| **State** | Parsed state (Defaults to 'Unknown' if not applicable). |
+| **Country** | Parsed country (Extracted via reverse-index logic). |
+| **Biography** | A 100-character preview of the author's biography. |
+
+---
+
+## 🚀 Installation & Usage
+
+### 1. Clone the repository
+```bash
+git clone [https://github.com/yourusername/quotes-intelligence-scraper.git](https://github.com/yourusername/quotes-intelligence-scraper.git)
+cd quotes-intelligence-scraper
